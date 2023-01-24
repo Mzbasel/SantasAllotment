@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 public class RandomAllocator {
-    private SecureRandom random = new SecureRandom();
-    private List<Integer> indexList = new ArrayList<>();
-    private List<Integer> availableIndexes = new ArrayList<>();
-    private Map<Integer, Integer> diagonallyLeftToRight = new HashMap<>();
-    private Map<Integer, Integer> diagonallyRightToLeft = new HashMap<>();
+    private final SecureRandom random = new SecureRandom();
+    private final List<Integer> indexList = new ArrayList<>();
+    private final List<Integer> availableIndexes = new ArrayList<>();
+    private final Map<Integer, Integer> diagonallyLeftToRight = new HashMap<>();
+    private final Map<Integer, Integer> diagonallyRightToLeft = new HashMap<>();
     private int leftToRightCount = 0, rightToLeftCount = 0, vertical = 0;
     private int index, randomIndex;
 
@@ -42,7 +42,7 @@ public class RandomAllocator {
         vertical++;
     }
 
-    private int generateRandomIndex() {
+    protected int generateRandomIndex() {
         return random.nextInt(availableIndexes.size());
     }
 

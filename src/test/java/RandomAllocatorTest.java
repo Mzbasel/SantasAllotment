@@ -10,112 +10,41 @@ import static org.junit.jupiter.api.Assertions.*;
 class RandomAllocatorTest {
 
     private RandomAllocator randomAllocator;
-    private List<Integer> notExpectedAllocation;
+    private List<Integer> notExpectedAllocation, actualAllocation, expectedAllocation;
 
     @BeforeEach
-    public void setUp(){
-        randomAllocator = new RandomAllocator();
+    public void setUp() {
+        randomAllocator = new TestableRandomAllocator();
         notExpectedAllocation = new ArrayList<>();
-    }
-
-   @Test
-    public void should_not_allocate_trees_in_the_same_horizontal_line_0_0_0(){
-        int size = 3;
-        notExpectedAllocation = List.of(0,0,0);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-       assertNotEquals(notExpectedAllocation, actualAllocation);
+        actualAllocation = new ArrayList<>();
+        expectedAllocation = new ArrayList<>();
     }
 
     @Test
-    public void should_not_allocate_trees_in_the_same_horizontal_line_0_1_0(){
-        int size = 3;
-        notExpectedAllocation = List.of(0,1,0);
+    public void should_not_allocate_trees_diagonally_left_to_right_0_1_2_3() {
+        notExpectedAllocation = List.of(0, 1, 2, 3);
 
-        List<Integer> actualAllocation = randomAllocator.generate(size);
+        actualAllocation = randomAllocator.generate(4);
 
         assertNotEquals(notExpectedAllocation, actualAllocation);
     }
 
     @Test
-    public void should_not_allocate_trees_in_the_same_horizontal_line_0_2_0(){
-        int size = 3;
-        notExpectedAllocation = List.of(0,2,0);
+    public void should_not_allocate_trees_diagonally_left_to_right_0_1_3_2() {
+        notExpectedAllocation = List.of(0, 1, 3, 2);
 
-        List<Integer> actualAllocation = randomAllocator.generate(size);
+        actualAllocation = randomAllocator.generate(4);
 
         assertNotEquals(notExpectedAllocation, actualAllocation);
     }
+
 
     @Test
-    public void should_not_allocate_trees_in_the_same_horizontal_line_0_0_1(){
-        int size = 3;
-        notExpectedAllocation = List.of(0,0,1);
+    void should_allocate_trees_in_a_size_4_square() {
+        expectedAllocation = List.of(0,3,1,2);
 
-        List<Integer> actualAllocation = randomAllocator.generate(size);
+        actualAllocation = randomAllocator.generate(4);
 
-        assertNotEquals(notExpectedAllocation, actualAllocation);
+        assertEquals(expectedAllocation, actualAllocation);
     }
-
-    @Test
-    public void should_not_allocate_trees_in_the_same_horizontal_line_1_0_0(){
-        int size = 3;
-        notExpectedAllocation = List.of(1,0,0);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-        assertNotEquals(notExpectedAllocation, actualAllocation);
-    }
-
-    @Test
-    public void should_not_allocate_trees_in_the_same_horizontal_line_2_0_0(){
-        int size = 3;
-        notExpectedAllocation = List.of(2,0,0);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-        assertNotEquals(notExpectedAllocation, actualAllocation);
-    }
-
-    @Test
-    public void should_not_allocate_trees_diagonally_left_to_right_0_1_2_3(){
-        int size = 4;
-        notExpectedAllocation = List.of(0,1,2,3);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-        assertNotEquals(notExpectedAllocation, actualAllocation);
-    }
-
-    @Test
-    public void should_not_allocate_trees_diagonally_left_to_right_0_1_3_2(){
-        int size = 4;
-        notExpectedAllocation = List.of(0,1,3,2);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-        assertNotEquals(notExpectedAllocation, actualAllocation);
-    }
-
-    @Test
-    public void should_not_allocate_trees_diagonally_left_to_right_0_2_3_1(){
-        int size = 4;
-        notExpectedAllocation = List.of(0,2,3,1);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-        assertNotEquals(notExpectedAllocation, actualAllocation);
-    }
-
-    @Test
-    public void should_not_allocate_trees_diagonally_left_to_right_2_1_3_0(){
-        int size = 4;
-        notExpectedAllocation = List.of(2,1,3,0);
-
-        List<Integer> actualAllocation = randomAllocator.generate(size);
-
-        assertNotEquals(notExpectedAllocation, actualAllocation);
-    }
-
 }
